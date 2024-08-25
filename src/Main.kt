@@ -78,7 +78,7 @@ fun homework_1_5() {
 //в цикле изменить с 5 на 4, потому что массив из 4 элементов
 fun homework_2_1() {
     val hobbits = arrayOf("Frodo", "Sam", "Merry", "Pippin")
-    var x = 0;
+    var x = 0
     while (x < 4) {
         println("${hobbits[x]} is a good Hobbit name")
         x = x + 1
@@ -88,7 +88,7 @@ fun homework_2_1() {
 // не хватало фигурных скобок в конце вывода
 fun homework_2_2() {
     val firemen = arrayOf("Pugh", "Pugh", "Barney McGrew", "Cuthbert", "Dibble", "Grub")
-    var firemanNo = 0;
+    var firemanNo = 0
     while (firemanNo < 6) {
         println("Fireman number $firemanNo is ${firemen[firemanNo]}")
         firemanNo = firemanNo + 1
