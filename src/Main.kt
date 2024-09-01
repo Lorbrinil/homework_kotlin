@@ -1,130 +1,108 @@
-fun main() {
-    homework_1_1()
-    sep()
-    homework_1_2()
-    sep()
-    homework_1_3()
-    sep()
-    homework_1_4()
-    sep()
-    homework_1_5()
-    sep()
-    homework_2_1()
-    sep()
-    homework_2_2()
-    sep()
-    homework_2_3()
-    sep()
-    homework_2_4()
+//Из книги пример
+fun main(args: Array<String>) {
+    val options = arrayOf("Rock","Paper","Scissors")
+    val gameChoice = getGameChoice(options)
+    val userChoice = getUserChoice(options)
+    printResult(userChoice, gameChoice)
 }
 
-fun sep(){
-    println("_________________________________")
-}
+fun getGameChoice(optionsParam:Array<String>) =
+    optionsParam[(Math.random() * optionsParam.size).toInt()]
 
-fun homework_1_1(){
-    var x = 1
-    while (x < 3) {
-        print(if (x == 1) "Yab" else "Dab")
-        print("ba")
-        x = x + 1
-    }
-    if (x == 3) println("Do")
-}
-
-//x не изменяется, поэтому выполнено не будет, надо как-то изменять х
-fun homework_1_2() {
-    var x = 1
-    while (x < 10) {
-        if (x > 3) {
-            println("big x = $x")
+fun getUserChoice(optionsParam: Array<String>): String{
+    var isValidChoice = false
+    var userChoice = ""
+    while (!isValidChoice) {
+        //Запросить у пользователя его выбор
+        print("Please enter one of the following:")
+        for (item in optionsParam) print(" $item")
+        println(".")
+        //Прочитать пользовательский ввод
+        val userInput = readLine()
+        //Проверить пользовательский ввод
+        if (userInput != null && userInput in optionsParam) {
+            isValidChoice = true
+            userChoice = userInput
         }
-        x = x + 1
+        //Если выбран недопустимый вариант, сообщить пользователю
+        if (!isValidChoice) println("You must enter a valid choice.")
     }
+    return userChoice
 }
 
-//val для неизменяемых переменных, надо var
-fun homework_1_3() {
-    var x = 10
-    while (x > 1) {
-        x = x - 1
-        if (x < 3) {
-            println("small x = $x")
+/*ДОМАШНЕЕ ЗАДАНИЕ*/
+/*-----------------------------------------*/
+//Все ок
+fun doSomething(msg: String, i: Int): Unit {
+    if (i > 0) {
+        var x = 0
+        while (x < i) {
+            println(msg)
+            x = x + 1
         }
     }
 }
 
-//не хватало else
-fun homework_1_4() {
-    var x = 10
-    while (x > 1) {
-        x = x - 1
-        println(if (x < 3) "small $x" else "big $x")
-    }
+//Нельзя изменять x, потому что как локальная переменная val
+//Поэтому можно присвоить новой переменной значение
+fun timesThree(x: Int): Int {
+    var y = x
+    y = y * 3
+    return y
 }
 
-//смотреть папку page57homework
-fun homework_1_5() {
-    var x = 0
-    var y = 0
-    while (x < 5) {
-        y = x - y
-        print("$x$y ")
+//Нет типа возвращаемого значения для функции
+fun maxValue(args: Array<Int>): Int {
+    var max = args[0]
+    var x = 1
+    while (x < args.size) {
+        var item = args[x]
+        max = if (max >= item) max else item
         x = x + 1
     }
-    println("")
+    return max
 }
+/*-----------------------------------------*/
 
-//в цикле изменить с 5 на 4, потому что массив из 4 элементов
-fun homework_2_1() {
-    val hobbits = arrayOf("Frodo", "Sam", "Merry", "Pippin")
+/*
+x += 6          81 23
+
+x--             18 23
+
+y = x + y       27 131
+
+y = 7           27 6
+
+x = x + y       4286 4275
+y = x - 7
+
+x = y           35 32
+y++
+*/
+fun page_109() {
     var x = 0
-    while (x < 4) {
-        println("${hobbits[x]} is a good Hobbit name")
-        x = x + 1
+    var y = 20
+    for(outer in 1..3) {
+        for (inner in 4 downTo 2) {
+            x = y
+            y++
+            y++
+            x += 3
+
+        }
+        y -= 2
     }
+    println("$x $y")
 }
-
-// не хватало фигурных скобок в конце вывода
-fun homework_2_2() {
-    val firemen = arrayOf("Pugh", "Pugh", "Barney McGrew", "Cuthbert", "Dibble", "Grub")
-    var firemanNo = 0
-    while (firemanNo < 6) {
-        println("Fireman number $firemanNo is ${firemen[firemanNo]}")
-        firemanNo = firemanNo + 1
-    }
-}
-
-fun homework_2_3() {
-    val fruit = arrayOf("Apple", "Banana", "Cherry", "Blueberry", "Pomegranate")
-    val index = arrayOf(1, 3, 4, 2)
-    var y: Int
-    var x = 0
-
-    while (x < 4) {
-        y = index[x]
-        println("Fruit = ${fruit[y]}")
-        x = x + 1
-    }
-}
-
-fun homework_2_4() {
-    val x = arrayOf(0, 1, 2, 3, 4)
-    x[3] = x[2] //x[3] = 2
-    x[4] = x[0] //x[4] = 0
-    x[2] = x[1] //x[2] = 1
-    x[1] = x[0] //x[1] = 0
-    x[0] = x[1] //x[0] = 0
-    x[4] = x[3] //x[4] = 2
-    x[3] = x[2] //x[3] = 1
-    x[2] = x[4] //x[2] = 2
-    //ИТОГО: 0 0 2 1 2
-
-    //проверяем:
-    var y = 0
-    while (y < 5){
-        println("${x[y]}")
-        y = y + 1
-    }
-//За работу
+/*-----------------------------------------*/
+fun printResult(userChoice: String, gameChoice: String) {
+    val result: String
+//Определить результат
+    if (userChoice == gameChoice) result = "Tie!"
+    else if ((userChoice == "Rock" && gameChoice == "Scissors") ||
+        (userChoice == "Paper" && gameChoice == "Rock") ||
+        (userChoice == "Scissors" && gameChoice == "Paper")) result = "You win!"
+    else result = "You lose!"
+//Вывести результат
+    println("You chose $userChoice. I chose $gameChoice. $result")
 }
